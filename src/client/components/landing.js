@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { ErrorMessage, FormButton } from "./shared.js";
+//import { ErrorMessage, FormButton } from "./shared.js";
 
 const GameTypesBase = styled.div`
   display: flex;
@@ -17,26 +17,27 @@ const GameLabel = styled.label``;
 
 const GameTypeInput = styled.input``;
 
-const GameChoice = ({ game, selected, onChange }) => {
-  return (
-    <GameLabel>
-      <GameTypeInput
-        type="radio"
-        name="game"
-        value={game}
-        checked={selected}
-        onChange={onChange}
-      />
-      {game}
-    </GameLabel>
-  );
-};
+// Can change to type of app
+// const AppChoice = ({ app, selected, onChange }) => {
+//   return (
+//     <GameLabel>
+//       <GameTypeInput
+//         type="radio"
+//         name="app"
+//         value={game}
+//         checked={selected}
+//         onChange={onChange}
+//       />
+//       {game}
+//     </GameLabel>
+//   );
+// };
 
-GameChoice.propTypes = {
-  game: PropTypes.string.isRequired,
-  selected: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+// GameChoice.propTypes = {
+//   app: PropTypes.string.isRequired,
+//   selected: PropTypes.bool.isRequired,
+//   onChange: PropTypes.func.isRequired,
+// };
 
 const StartBase = styled.div`
   grid-area: main;
@@ -59,10 +60,10 @@ const StartOptions = styled.div`
   }
 `;
 
-export const Start = ({ history }) => {
+export const Landing = ({ history }) => {
   let navigate = useNavigate();
   let [state, setState] = useState({
-    game: "klondike",
+    app: "klondike",
     draw: "Draw 1",
     color: "Red",
   });
@@ -70,24 +71,24 @@ export const Start = ({ history }) => {
 
   const onSubmit = async (ev) => {
     ev.preventDefault();
-    const response = await fetch("/v1/game", {
-      body: JSON.stringify({
-        game: state.game,
-        draw: state.draw,
-        color: state.color,
-      }),
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    const data = await response.json();
-    if (response.ok) {
-      navigate(`/game/${data.id}`);
-    } else {
-      setError(`Error: ${data.error}`);
-    }
+    // const response = await fetch("/v1/game", {
+    //   body: JSON.stringify({
+    //     game: state.game,
+    //     draw: state.draw,
+    //     color: state.color,
+    //   }),
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    // });
+    // const data = await response.json();
+    // if (response.ok) {
+    //   navigate(`/game/${data.id}`);
+    // } else {
+    //   setError(`Error: ${data.error}`);
+    // }
   };
 
   const onChange = (ev) =>
@@ -98,10 +99,10 @@ export const Start = ({ history }) => {
 
   return (
     <StartBase>
-      <ErrorMessage msg={error} />
+      {/* <ErrorMessage msg={error} /> */}
       <h4>Create New Game</h4>
       <StartForm>
-        <GameTypes game={state.game} onChange={onChange} />
+        <GameTypes app={state.app} onChange={onChange} />
         <StartOptions>
           <div>
             <label htmlFor="draw">Draw:</label>
